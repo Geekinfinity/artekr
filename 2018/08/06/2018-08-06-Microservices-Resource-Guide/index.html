@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="微服务资源指南"><meta name="keywords" content="微服务, microservice, Artekr"><link rel="alternate" href="/atom.xml" title="Artekr"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon-32x32.ico?v=2.11.0">
+<link rel="canonical" href="http://blog.wangheng.ca/2018/08/06/2018-08-06-Microservices-Resource-Guide/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66230718-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66230718-3');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>微服务资源指南 - Artekr</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Artekr</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Artekr</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">微服务资源指南
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-08-06
+        </span><span class="post-category">
+            <a href="/categories/Tech/">Tech</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是微服务？"><span class="toc-text">什么是微服务？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务架构定义"><span class="toc-text">微服务架构定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务架构讲座"><span class="toc-text">微服务架构讲座</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务与分布式对象"><span class="toc-text">微服务与分布式对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务与Service-Oriented-Architecture"><span class="toc-text">微服务与Service-Oriented Architecture</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么时候需要用微服务？"><span class="toc-text">什么时候需要用微服务？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#优点："><span class="toc-text">优点：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缺点："><span class="toc-text">缺点：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何构建微服务？"><span class="toc-text">如何构建微服务？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单个服务大小"><span class="toc-text">单个服务大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全性"><span class="toc-text">安全性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#讲座"><span class="toc-text">讲座</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上线前的先决条件"><span class="toc-text">上线前的先决条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#哪些公司或机构在用微服务？"><span class="toc-text">哪些公司或机构在用微服务？</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>本文翻译并总结Martin Fowler的<a href="https://martinfowler.com/microservices/" target="_blank" rel="noopener">个人网站</a>中有关微服务的资源指南。Martin是书籍<a href="https://refactoring.com" target="_blank" rel="noopener">《重构:改善既有代码的设计》</a>的作者，很早就开始关注微服务的架构设计。这篇指南主要由Martin个人所甄选的有关微服务架构设计的文章，视频，书籍和博客组成。也希望通过这篇指南给关注微服务架构的人一个上手的起点。</p>
+<a id="more"></a>
+
+<p>指南主要分为4个部分：</p>
+<ol>
+<li>什么是微服务？</li>
+<li>什么时候需要用微服务？</li>
+<li>如何构建微服务？</li>
+<li>哪些公司或机构在用微服务？</li>
+</ol>
+<h1 id="什么是微服务？"><a href="#什么是微服务？" class="headerlink" title="什么是微服务？"></a>什么是微服务？</h1><blockquote>
+<p>简单来说，微服务架构设计指的是通过一套细分的多个服务来开发一个完整应用的方式，其中每一个服务都在各自独立运行，并通过轻量的对接方式来交流，通常是包含HTTP资源的API请求。这些单个服务根据自身业务需求来创建，并且有自动部署系统来独立部署。所有的服务很少需要集中管理，它们可以用不同的编程语言编写，并使用不同的数据存储技术。<br><em>– James Lewis and Martin Fowler</em></p>
+</blockquote>
+<h2 id="微服务架构定义"><a href="#微服务架构定义" class="headerlink" title="微服务架构定义"></a>微服务架构定义</h2><p>首先最值得精读的文章要数James Lewis和Martin Fowler联合撰写的<br><a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">Microservices: a definition of this new architectural term</a>，中文版<a href="https://mp.weixin.qq.com/s?__biz=MjM5MjEwNTEzOQ==&mid=401500724&idx=1&sn=4e42fa2ffcd5732ae044fe6a387a1cc3#rd" target="_blank" rel="noopener">戳这里</a>。</p>
+<h2 id="微服务架构讲座"><a href="#微服务架构讲座" class="headerlink" title="微服务架构讲座"></a>微服务架构讲座</h2><p>Martin在不同会议上有关微服务的<a href="https://martinfowler.com/videos.html#microservices" target="_blank" rel="noopener">讲座</a>，包括微服务的定义，和单片架构(Monolithic architecture)的对比，以及部署微服务应用之前所需要做的事。</p>
+<h2 id="微服务与分布式对象"><a href="#微服务与分布式对象" class="headerlink" title="微服务与分布式对象"></a>微服务与分布式对象</h2><p>分布式对象(Distributed Object)指的是分布在同一电脑中不同进程，或者通过网络连接的不同电脑中的对象。主要为了解决在不同进程中共享数据或者方法调用的问题。<a href="https://martinfowler.com/articles/distributed-objects-microservices.html" target="_blank" rel="noopener">这篇文章</a>讲了微服务与分布式对象之间的关系。</p>
+<h2 id="微服务与Service-Oriented-Architecture"><a href="#微服务与Service-Oriented-Architecture" class="headerlink" title="微服务与Service-Oriented Architecture"></a>微服务与Service-Oriented Architecture</h2><p>Matt McLarty的<a href="https://www.infoworld.com/article/3080611/application-development/learning-from-soa-5-lessons-for-the-microservices-era.html" target="_blank" rel="noopener">这篇文章</a>详细讲述了SOA的发展历史，以及它与微服务架构之间的关系。</p>
+<h1 id="什么时候需要用微服务？"><a href="#什么时候需要用微服务？" class="headerlink" title="什么时候需要用微服务？"></a>什么时候需要用微服务？</h1><p>首先，需要了解微服务架构的优缺点的权衡，具体参照<a href="https://martinfowler.com/articles/microservice-trade-offs.html" target="_blank" rel="noopener">Microservice Trade-Offs</a>一文。这里简单总结了微服务架构的优缺点。</p>
+<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ol>
+<li><strong>强模块化(Strong Module Boundaries)</strong><br>微服务加强了设计上的模块化结构，对于比较大型的团队尤其重要。</li>
+<li><strong>独立部署(Independent Deployment)</strong><br>单个的小型服务比较容易部署，并且由于每个服务有具有独立自主性，出现问题也较少导致整个系统崩溃。</li>
+<li><strong>技术上的多样性(Technology Diversity)</strong><br>微服务架构允许在不同的服务之间灵活地选择不同语言，开发框架，以及数据存储技术。</li>
+</ol>
+<h2 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h2><ol>
+<li><strong>分布式(Distribution)</strong><br>分布式系统比较难以开发，远程调用出现问题的风险比较高。</li>
+<li><strong>系统最终的一致性(Eventual Consistency)</strong><br>维护并保持一个分布式系统的强一致性十分困难，要求每个开发人员都必须考虑到系统最终的一致性问题。</li>
+<li><strong>系统运行的复杂性(Operational Complexity)</strong><br>可能需要一个专门的运维组来管理多个服务，并且这些服务可能会不时地进行更新和重新部署。</li>
+</ol>
+<h1 id="如何构建微服务？"><a href="#如何构建微服务？" class="headerlink" title="如何构建微服务？"></a>如何构建微服务？</h1><p>强烈推荐本书<a href="https://www.amazon.ca/gp/product/1491950358?ie=UTF8&tag=martinfowlerc-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1491950358" target="_blank" rel="noopener">《Building Microservices》</a>。作者<a href="https://samnewman.io" target="_blank" rel="noopener">Sam Newman</a>详细介绍了微服务的起源，以及涵盖了微服务架构设计如何应用在整个软件开发周期的方方面面。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>参考<a href="https://github.com/tobyclemson" target="_blank" rel="noopener">Toby Clemson</a>撰写的关于微服务架构下需要考虑的不同种类的测试<a href="https://martinfowler.com/articles/microservice-testing/" target="_blank" rel="noopener">Testing Strategies in a<br>Microservice Architecture</a>。</p>
+<h2 id="单个服务大小"><a href="#单个服务大小" class="headerlink" title="单个服务大小"></a>单个服务大小</h2><p>微服务架构中一个重要话题就是如何定义单个服务的大小。可以参考一下资料：</p>
+<ul>
+<li><p><a href="https://www.innoq.com/blog/st/2014/11/how-small-should-your-microservice-be/" target="_blank" rel="noopener">How small should your microservice be?</a></p>
+</li>
+<li><p><a href="https://vimeo.com/74589816" target="_blank" rel="noopener">GeeCON 2013: Sam Newman - From Macro to Micro: How Big Should Your Services Be?</a></p>
+</li>
+</ul>
+<h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><ul>
+<li><p><a href="https://www.youtube.com/watch?v=AjzQG3Wth0I" target="_blank" rel="noopener">microXchg 2016 - Sam Newman : Security and Microservices</a></p>
+</li>
+<li><p><a href="http://www.grahamlea.com/2015/07/microservices-security-questions/" target="_blank" rel="noopener">Microservices Security: All The Questions You Should Be Asking</a></p>
+</li>
+</ul>
+<h2 id="讲座"><a href="#讲座" class="headerlink" title="讲座"></a>讲座</h2><ul>
+<li><p><a href="https://vimeo.com/99531595" target="_blank" rel="noopener">GeeCON 2014: Sam Newman - The Practical Implications Of Microservices</a></p>
+</li>
+<li><p><a href="http://www.se-radio.net/2015/05/se-radio-episode-226-eric-evans-on-domain-driven-design-at-10-years/" target="_blank" rel="noopener">Episode 226: Eric Evans on Domain-Driven Design at 10 Years</a></p>
+</li>
+</ul>
+<h2 id="上线前的先决条件"><a href="#上线前的先决条件" class="headerlink" title="上线前的先决条件"></a>上线前的先决条件</h2><p>Martin在<a href="https://martinfowler.com/bliki/MicroservicePrerequisites.html" target="_blank" rel="noopener">Microservice Prerequisites</a>一文中列出了微服务架构设计的应用上线前所需要准备的条件，提炼如下：</p>
+<ul>
+<li>快速配置(Rapid Provisioning)</li>
+<li>基本监测(Basic Monitoring)</li>
+<li>快速部署(Rapid Application Deployment)</li>
+<li>DevOps文化(<a href="https://martinfowler.com/bliki/DevOpsCulture.html" target="_blank" rel="noopener">DevOps Culture</a>)</li>
+</ul>
+<h1 id="哪些公司或机构在用微服务？"><a href="#哪些公司或机构在用微服务？" class="headerlink" title="哪些公司或机构在用微服务？"></a>哪些公司或机构在用微服务？</h1><ul>
+<li><p><strong>ThoughtWorks</strong></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=hsoovFbpAoE" target="_blank" rel="noopener">Real World Microservices - Lessons from the Frontline</a></li>
+</ul>
+</li>
+<li><p><strong>Netflix</strong></p>
+<ul>
+<li><a href="https://queue.acm.org/detail.cfm?id=1142065" target="_blank" rel="noopener">A Conversation with Werner Vogels</a></li>
+<li><a href="https://vimeo.com/29719577" target="_blank" rel="noopener">Amazon and the Lean Cloud</a></li>
+</ul>
+</li>
+<li><p><strong>Soundcloud</strong></p>
+<ul>
+<li><a href="http://philcalcado.com/2015/09/08/how_we_ended_up_with_microservices.html" target="_blank" rel="noopener">How we ended up with microservices</a></li>
+<li>Building Products at SoundCloud: [Part I](Building Products at SoundCloud), <a href="https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-2-breaking-the-monolith" target="_blank" rel="noopener">Part II</a>, <a href="https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-3-microservices-in-scala-and-finagle" target="_blank" rel="noopener">Part III</a></li>
+</ul>
+</li>
+<li><p><strong><a href="https://twitter.com/randyshoup" target="_blank" rel="noopener">Randy Shoup</a></strong></p>
+<ul>
+<li><a href="https://www.infoq.com/interviews/randy-shoup-microservices" target="_blank" rel="noopener">InfoQ interview</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>更多资料</strong></p>
+<ul>
+<li><a href="https://medium.com/@alexmc/two-years-into-micro-services-98c20bb4249b" target="_blank" rel="noopener">Two years into microservices</a></li>
+<li><a href="https://blog.karmawifi.com/how-we-build-microservices-at-karma-71497a89bfb4" target="_blank" rel="noopener">How we build microservices at Karma</a></li>
+</ul>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://blog.wangheng.ca">Heng Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://blog.wangheng.ca/2018/08/06/2018-08-06-Microservices-Resource-Guide/">http://blog.wangheng.ca/2018/08/06/2018-08-06-Microservices-Resource-Guide/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/微服务/">微服务</a>
+            <a href="/tags/microservice/">microservice</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2018/09/02/2018-09-02-history-of-financial-investiment/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《金融投资400年》</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    <a class="next" href="/2018/07/25/2018-07-25-focus/">
+        <span class="next-text nav-default">滤掉噪音，保持专注</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:artekr.heng@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://twitter.com/artekrhengwang" class="iconfont icon-twitter" title="twitter"></a>
+        <a href="https://github.com/artekr" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.instagram.com/artekr" class="iconfont icon-instagram" title="instagram"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2014 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Heng Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://blog.wangheng.ca/2018/08/06/2018-08-06-Microservices-Resource-Guide/';
+        this.page.identifier = '2018/08/06/2018-08-06-Microservices-Resource-Guide/';
+        this.page.title = '微服务资源指南';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//artekr.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

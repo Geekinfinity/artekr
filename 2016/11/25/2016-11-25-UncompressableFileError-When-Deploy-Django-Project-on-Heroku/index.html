@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="UncompressableFileError When Deploy Django Project on Heroku"><meta name="keywords" content="Django, Heroku, website, Artekr"><link rel="alternate" href="/atom.xml" title="Artekr"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon-32x32.ico?v=2.11.0">
+<link rel="canonical" href="http://blog.wangheng.ca/2016/11/25/2016-11-25-UncompressableFileError-When-Deploy-Django-Project-on-Heroku/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66230718-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66230718-3');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>UncompressableFileError When Deploy Django Project on Heroku - Artekr</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Artekr</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Artekr</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">UncompressableFileError When Deploy Django Project on Heroku
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-11-25
+        </span><span class="post-category">
+            <a href="/categories/Tech/">Tech</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>I was using Django as my website backend framework, and it was my first time to do the backend stuff myself. After some days ramp up and search, I found the <a href="https://cookiecutter-django.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener">Cookiecutter Django</a> provides a very good project template which could be used in a production level.</p>
+<p>Few days struggling, I finally get into the last deployment step. I followed the <a href="https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html" target="_blank" rel="noopener">document</a> to deploy the website on <a href="https://www.heroku.com/" target="_blank" rel="noopener">Heroku</a>.</p>
+<a id="more"></a>
+
+<p>However, after I got an error, the website shows “Internal Service Error” and <a href="https://opbeat.com/" target="_blank" rel="noopener">opbeat</a> send me this error:</p>
+<blockquote>
+<p>  <strong>UncompressableFileError:</strong> ‘<a href="https://s3.amazonaws.com:443/*bucket-name*/static/css/project.css&#39;" target="_blank" rel="noopener">https://s3.amazonaws.com:443/*bucket-name*/static/css/project.css&#39;</a> <strong>isn’t accessible via COMPRESS_URL</strong> (‘<a href="https://s3.amazonaws.com/*bucket-name*/static/&#39;" target="_blank" rel="noopener">https://s3.amazonaws.com/*bucket-name*/static/&#39;</a>) <strong>and can’t be compressed.</strong></p>
+</blockquote>
+<p>However, I was able to open the project.css directly in the browser, how come I don’t have access to the directory?</p>
+<p>It took me hours to search and I still couldn’t figure it out. Then I decided to look into the source code and found this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> url.startswith(base_url):</span><br><span class="line">    <span class="keyword">raise</span> UncompressableFileError(<span class="string">"'%s' isn't accessible via"</span></span><br><span class="line">                                 <span class="string">"COMPRESS_URL ('%s') and can't be"</span></span><br><span class="line">                                 <span class="string">"compressed"</span>%(url, base_url))</span><br></pre></td></tr></table></figure>
+
+<p>Comparing to the error I received, we could conclude that:</p>
+<ul>
+<li><strong>url</strong>: <a href="https://s3.amazonaws.com:443/*bucket-name*/static/css/project.css" target="_blank" rel="noopener">https://s3.amazonaws.com:443/*bucket-name*/static/css/project.css</a></li>
+<li><strong>base_url</strong>: <a href="https://s3.amazonaws.com/*bucket-name*/static/" target="_blank" rel="noopener">https://s3.amazonaws.com/*bucket-name*/static/</a></li>
+</ul>
+<p>Found the difference?</p>
+<p>YEP, the base_url missing the port number!<br>Because in the source code, the Python code used <em>url.startswith()</em> method, thus the url should be exactly match!</p>
+<p>So in the <strong>production.py</strong> file modify the <strong>STATIC_URL</strong> as following:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">STATIC_URL</span> = <span class="string">'https://s3.amazonaws.com:443/%s/static/'</span> % AWS_STORAGE_BUCKET_NAME</span><br><span class="line"><span class="attr">COMPRESS_URL</span> = STATIC_URL</span><br></pre></td></tr></table></figure>
+
+<p>Commit the change, the website is alive!</p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://blog.wangheng.ca">Heng Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://blog.wangheng.ca/2016/11/25/2016-11-25-UncompressableFileError-When-Deploy-Django-Project-on-Heroku/">http://blog.wangheng.ca/2016/11/25/2016-11-25-UncompressableFileError-When-Deploy-Django-Project-on-Heroku/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/Django/">Django</a>
+            <a href="/tags/Heroku/">Heroku</a>
+            <a href="/tags/website/">website</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2017/02/11/2017-02-11-Sapiens-2/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《人类简史：从动物到上帝》- 2</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    <a class="next" href="/2016/10/30/2016-10-30-Kashiwa-Satos-Ultimate-Method-for-Reaching-the-Essential/">
+        <span class="next-text nav-default">《佐藤可士和的超整理术》</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:artekr.heng@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://twitter.com/artekrhengwang" class="iconfont icon-twitter" title="twitter"></a>
+        <a href="https://github.com/artekr" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.instagram.com/artekr" class="iconfont icon-instagram" title="instagram"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2014 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Heng Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://blog.wangheng.ca/2016/11/25/2016-11-25-UncompressableFileError-When-Deploy-Django-Project-on-Heroku/';
+        this.page.identifier = '2016/11/25/2016-11-25-UncompressableFileError-When-Deploy-Django-Project-on-Heroku/';
+        this.page.title = 'UncompressableFileError When Deploy Django Project on Heroku';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//artekr.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

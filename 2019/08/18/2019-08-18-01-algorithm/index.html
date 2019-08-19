@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Algorithm - LRU"><meta name="keywords" content="leetcode, algorithm, linkedlist, Artekr"><link rel="alternate" href="/atom.xml" title="Artekr"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon-32x32.ico?v=2.11.0">
+<link rel="canonical" href="http://blog.wangheng.ca/2019/08/18/2019-08-18-01-algorithm/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66230718-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66230718-3');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>Algorithm - LRU - Artekr</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Artekr</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Artekr</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Algorithm - LRU
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-08-18
+        </span><span class="post-category">
+            <a href="/categories/Algorithm/">Algorithm</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Analyze"><span class="toc-text">Analyze</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Using-Array"><span class="toc-text">Using Array</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Using-Doubly-Linked-List"><span class="toc-text">Using Doubly Linked List</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>In computer science, there are many <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies" target="_blank" rel="noopener">cache algorithms</a> in order to optimize the cache of information stored on the computer.</p>
+<p>Normaly, there is limited capacity for the cache allocated on the computer, and the computer needs to update the cache or delete the cache if the cache is full. There are many common algorithms for optimizing cache on a computer like: <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#First_in_first_out_(FIFO)" target="_blank" rel="noopener">FIFO (First in first out)</a>, <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least-frequently_used_(LFU)" target="_blank" rel="noopener">LFU (Least frequently used)</a>, <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank" rel="noopener">LRU (Least recently used)</a>.</p>
+<p>Today we are focusing on implementing the <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank" rel="noopener">LRU (Least recently used)</a> cache algorithm.</p>
+<a id="more"></a>
+
+<p>I will be using this problem <a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="noopener">146. LRU Cache</a> from LeetCode as the guide line for the implementation. Basically we need implement the following class:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, capacity: int)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key: int)</span> -&gt; int:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, key: int, value: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Your LRUCache object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"># obj = LRUCache(capacity)</span></span><br><span class="line"><span class="comment"># param_1 = obj.get(key)</span></span><br><span class="line"><span class="comment"># obj.put(key,value)</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h1><p>A rough thought is that we need to maintain a list-like data structure to store the cache sequentially, and update the list accordingly after each <code>get</code> or <code>put</code> operation.</p>
+<p>The data towards the end of the list is visited earlier and the data at the beginnig is the most recent visited one.</p>
+<p>Here is an list represents the cache. It has the capacity of 6, in which 5 of them are filled with data(<em>1</em>).</p>
+<ul>
+<li><p>If <strong>3</strong> got visited(<em>2</em>), it will be moved to the beginning of the list(<em>3</em>).</p>
+</li>
+<li><p>If we put <strong>6</strong> and <strong>7</strong> into the cache, <strong>5</strong> will be moved out of the cache since it reaches the capacity of the cache(<em>4</em>).</p>
+</li>
+</ul>
+<p><img src="/images/algorithms/lru.png" alt="LRU"></p>
+<h1 id="Using-Array"><a href="#Using-Array" class="headerlink" title="Using Array"></a>Using Array</h1><p>Using an array is pretty straighforward. We have deinfed few properties to the class:</p>
+<ul>
+<li><code>cacheData</code>: a dictionary to store the key and value</li>
+<li><code>cacheKey</code>: an array to store only the keys in a specific order</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">lass LRUCache_Array:</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, capacity: int)</span>:</span></span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        self.cacheData = &#123;&#125;</span><br><span class="line">        self.cacheKey = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">in</span> self.cacheData.keys():</span><br><span class="line">        <span class="comment"># check if the data already in the cache</span></span><br><span class="line">            <span class="keyword">if</span> key <span class="keyword">in</span> self.cacheKey:</span><br><span class="line">                <span class="comment"># remove the key from cacheKey</span></span><br><span class="line">                self.cacheKey.remove(key)</span><br><span class="line">            <span class="comment"># add the key back to cacheKey at the begining of the array since it is visited</span></span><br><span class="line">            self.cacheKey = [key] + self.cacheKey</span><br><span class="line">            <span class="comment"># return the value of the data from the cacheData dictionary</span></span><br><span class="line">            <span class="keyword">return</span> self.cacheData[key]</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, key: int, value: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">in</span> self.cacheData.keys():</span><br><span class="line">            <span class="comment"># if key already in the cacheData, update the value of the data</span></span><br><span class="line">            self.cacheData[key] = value</span><br><span class="line">            <span class="comment"># move the key from cacheKey to the beginning of the array</span></span><br><span class="line">            <span class="keyword">if</span> key <span class="keyword">in</span> self.cacheKey:</span><br><span class="line">                self.cacheKey.remove(key)</span><br><span class="line">            self.cacheKey = [key] + self.cacheKey</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># if the key not in cacheData yet, we need to check if the cacheData exceeds the capacity first before we put the data into the cache</span></span><br><span class="line">            <span class="keyword">if</span> len(self.cacheData) &lt; self.capacity:</span><br><span class="line">                <span class="comment"># add the data to cacheData, and insert the key at the beginning of the cacheKey array if there is still room</span></span><br><span class="line">                self.cacheData[key] = value</span><br><span class="line">                self.cacheKey = [key] + self.cacheKey</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># if exceeds the capacity, remove the last key from cacheKey and delete the data from cacheData.</span></span><br><span class="line">                lastDataKey = self.cacheKey.pop()</span><br><span class="line">                <span class="keyword">del</span> self.cacheData[lastDataKey]</span><br><span class="line">                <span class="comment"># then insert the data and the key</span></span><br><span class="line">                self.cacheData[key] = value</span><br><span class="line">                self.cacheKey = [key] + self.cacheKey</span><br></pre></td></tr></table></figure>
+
+<p>Since we are manipulating the key in an array, for example <code>remove</code> or <code>concatenation</code>, the time complexity of those operations are O(n). And the lookup time on a dictionary in Python is O(1). So the time complexity of each operation(<code>get</code> and <code>put</code>) in this implementation will be <strong>O(n)</strong>.</p>
+<h1 id="Using-Doubly-Linked-List"><a href="#Using-Doubly-Linked-List" class="headerlink" title="Using Doubly Linked List"></a>Using Doubly Linked List</h1><p>For doubly linked list, we will need to define an extra <code>ListNode</code> class, which has <code>prev</code> and <code>next</code> pointing to its previous node and next node respectively.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># define the double linked-list node</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key = None, value = None)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.value = value</span><br><span class="line">        self.next = <span class="literal">None</span></span><br><span class="line">        self.prev = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>Then we will need to define a few properties in our implementaion:</p>
+<ul>
+<li><code>cacheData</code>: a dictionary to store the key and value</li>
+<li><code>head</code>: a head node pointing to the first node of the linked list, initialized as <code>None</code></li>
+<li><code>tail</code>: a tail node pointing to the last node of the linked list, initialized as <code>None</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Used double linked-list to maintain the node. O(1)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache_LinkedList</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, capacity: int)</span>:</span></span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        self.cacheData = &#123;&#125;</span><br><span class="line">        self.head: ListNode = <span class="literal">None</span></span><br><span class="line">        self.tail: ListNode = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key: int)</span> -&gt; int:</span></span><br><span class="line">        node = self.cacheData.get(key)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            <span class="comment"># move the current node to the front of the linked list</span></span><br><span class="line">            self.__moveNodeToFront(node)</span><br><span class="line">            <span class="keyword">return</span> node.value</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, key: int, value: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        node = self.cacheData.get(key)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            <span class="comment"># key already exsit in cache, update the value</span></span><br><span class="line">            node.value = value</span><br><span class="line">            <span class="comment"># move the node to front since it has been updated</span></span><br><span class="line">            self.__moveNodeToFront(node)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            newNode = ListNode(key, value)</span><br><span class="line">            self.cacheData[key] = newNode</span><br><span class="line">            self.__addNodeAtFront(newNode)</span><br><span class="line">            <span class="keyword">if</span> len(self.cacheData) &gt; self.capacity:</span><br><span class="line">                <span class="keyword">del</span> self.cacheData[self.tail.key]</span><br><span class="line">                self.__removeNode(self.tail)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__moveNodeToFront</span><span class="params">(self, node: ListNode)</span>:</span></span><br><span class="line">        self.__removeNode(node)</span><br><span class="line">        self.__addNodeAtFront(node)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__removeNode</span><span class="params">(self, node: ListNode)</span>:</span></span><br><span class="line">        <span class="comment"># This method needs to consider if the node you want to remove is the head or the tail.</span></span><br><span class="line">        n = node.next <span class="comment"># if node is tail, then n will be None</span></span><br><span class="line">        p = node.prev <span class="comment"># if node is head, then p will be None</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> p:</span><br><span class="line">            self.head = n</span><br><span class="line">            node.next = <span class="literal">None</span></span><br><span class="line">            <span class="keyword">if</span> n:</span><br><span class="line">                n.prev = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            p.next = n</span><br><span class="line">            <span class="keyword">if</span> n:</span><br><span class="line">                n.prev = node.prev</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.tail = node.prev</span><br><span class="line">                node.prev = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__addNodeAtFront</span><span class="params">(self, node: ListNode)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.head:</span><br><span class="line">            <span class="comment"># if the linked list does not exist yet</span></span><br><span class="line">            self.head = node</span><br><span class="line">            self.tail = node</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        node.next = self.head  </span><br><span class="line">        self.head.prev = node</span><br><span class="line">        node.prev = <span class="literal">None</span></span><br><span class="line">        self.head = node</span><br></pre></td></tr></table></figure>
+
+<p>Sicne the time complexity of <code>insertion</code> or <code>deletion</code> operation on a doubly linked list is O(1), and the lookup time on a dictionary in Python is O(1). So the time complexity of each operation(<code>get</code> and <code>put</code>) in this implementation will be <strong>O(1)</strong>.</p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://blog.wangheng.ca">Heng Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://blog.wangheng.ca/2019/08/18/2019-08-18-01-algorithm/">http://blog.wangheng.ca/2019/08/18/2019-08-18-01-algorithm/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/leetcode/">leetcode</a>
+            <a href="/tags/algorithm/">algorithm</a>
+            <a href="/tags/linkedlist/">linkedlist</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2018/09/06/2018-09-06-insprired/">
+        <span class="next-text nav-default">《启示录：打造用户喜爱的产品》</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:artekr.heng@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://twitter.com/artekrhengwang" class="iconfont icon-twitter" title="twitter"></a>
+        <a href="https://github.com/artekr" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.instagram.com/artekr" class="iconfont icon-instagram" title="instagram"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2014 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Heng Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://blog.wangheng.ca/2019/08/18/2019-08-18-01-algorithm/';
+        this.page.identifier = '2019/08/18/2019-08-18-01-algorithm/';
+        this.page.title = 'Algorithm - LRU';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//artekr.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

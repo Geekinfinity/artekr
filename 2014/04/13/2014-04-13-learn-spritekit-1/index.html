@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Learning IOS Sprite Kit – 1"><meta name="keywords" content="ios, game, SpriteKit, Artekr"><link rel="alternate" href="/atom.xml" title="Artekr"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon-32x32.ico?v=2.11.0">
+<link rel="canonical" href="http://blog.wangheng.ca/2014/04/13/2014-04-13-learn-spritekit-1/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66230718-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66230718-3');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>Learning IOS Sprite Kit – 1 - Artekr</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Artekr</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Artekr</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Learning IOS Sprite Kit – 1
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2014-04-13
+        </span><span class="post-category">
+            <a href="/categories/iOS/">iOS</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Create-the-Sprite-Kit-project"><span class="toc-text">1.Create the Sprite Kit project</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Look-into-MyScene-m"><span class="toc-text">2.Look into MyScene.m</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-id-initWithSize-CGSize-size"><span class="toc-text">2.1  -(id)initWithSize:(CGSize)size</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-void-touchesBegan-NSSet-touches-withEvent-UIEvent-event"><span class="toc-text">2.2 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-void-update-CFTimeInterval-currentTime"><span class="toc-text">2.3 -(void)update:(CFTimeInterval)currentTime</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-First-run-of-the-project"><span class="toc-text">3.First run of the project</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>As Apple released the IOS 7, it also comes with its own game engine – Sprite Kit. After some experience about objective-c, finally I start to dig into this new-released yet powerful game engine.</p>
+<p>If you have experience about cocos2D-x development, you might find there are a lot of similarities between these two. To find the comparison between Sprite Kit vs cocos2D-x and Unity 2D, there is a very good video – [Cocos2D vs Sprite Kit vs Unity 2D Tech Talk Video][csu], which uses an game example to explain all the details.</p>
+<a id="more"></a>
+
+<p>Personally, I always prefer the original one. Apple has its own reason to release this game engine, and Sprite kit is fully integrated with Xcode 5 and IOS 7, you don’t need to import any other third-party library, which makes things more clear, in my opinion. Plus considering the speed and performance, I bet Sprite Kit is no doubt the number 1 among these 3.</p>
+<h3 id="1-Create-the-Sprite-Kit-project"><a href="#1-Create-the-Sprite-Kit-project" class="headerlink" title="1.Create the Sprite Kit project"></a>1.Create the Sprite Kit project</h3><p>As Sprite Kit comes with Xcode 5, you just choose “SpriteKit Game” when you create the project.</p>
+<p><img src="/images/sprite-1.png" alt="image"></p>
+<p>After the project has been created, you will find the project contains the following contents (I add “WH” as a Class<br>Prefix while creating the project).</p>
+<p><img src="/images/sprite-2.png" alt="image"></p>
+<ul>
+<li><p><strong><em>ViewController (.h &amp; .m)</em></strong> is the “controller” role in IOS’s MVC model. It basically controls the view and the model and oordinates the work between view and model.</p>
+</li>
+<li><p><strong><em>MyScene (.h &amp; .m)</em></strong> is the “view” role in the MVC model. Everything that presents to users will be handled here. You might create many scenes and switch between them during the game. For example, an initial view where presents the general information about the game, a setting view where users could set their preferences, or a game over view will present if user lost the game.</p>
+</li>
+<li><p><strong><em>Images.xcassets</em></strong> is a folder where you drop all your source images, for example, the background image, character images, etc.</p>
+</li>
+</ul>
+<p>The above three items are the most frequent ones when you begin your adventure with Sprite Kit.</p>
+<h3 id="2-Look-into-MyScene-m"><a href="#2-Look-into-MyScene-m" class="headerlink" title="2.Look into MyScene.m"></a>2.Look into MyScene.m</h3><p>Initially in the MyScene.m, there are 3 functions.</p>
+<h4 id="2-1-id-initWithSize-CGSize-size"><a href="#2-1-id-initWithSize-CGSize-size" class="headerlink" title="2.1  -(id)initWithSize:(CGSize)size"></a>2.1  <em>-(id)initWithSize:(CGSize)size</em></h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">id</span>)initWithSize:(<span class="built_in">CGSize</span>)size &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> initWithSize:size]) &#123;</span><br><span class="line">    <span class="comment">/* Setup your scene here */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.backgroundColor = [<span class="built_in">SKColor</span> colorWithRed:<span class="number">0.15</span> green:<span class="number">0.15</span> blue:<span class="number">0.3</span> alpha:<span class="number">1.0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">SKLabelNode</span> *myLabel = [<span class="built_in">SKLabelNode</span> labelNodeWithFontNamed:<span class="string">@"Chalkduster"</span>];</span><br><span class="line"></span><br><span class="line">    myLabel.text = <span class="string">@"Hello, World!"</span>;</span><br><span class="line">    myLabel.fontSize = <span class="number">30</span>;</span><br><span class="line">    myLabel.position = <span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMidX</span>(<span class="keyword">self</span>.frame),</span><br><span class="line">                                       <span class="built_in">CGRectGetMidY</span>(<span class="keyword">self</span>.frame));</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> addChild:myLabel];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This function will be called while the first view appears on the screen. You could easily set the background colour by assigning a <code>SKColor</code> to a property <code>backgroundColor</code> of <code>SKScene</code> class.</p>
+<p>Next, it create a label which will be presented on the screen. And the font type of this label is set to “Chalkduster”. The label’s content is a simple universal string “Hello World” with font size 30. Then it’s the position. The position is a coordination – (x,y). Thus <code>CGPointMake()</code> function will create such a coordination. <code>CGRectGetMidX(self.frame)</code> and <code>CGRectGetMidY(self.frame)</code> is the function to get the middle length of x axis and y axis. <code>self.frame</code> is a property of <code>CGRect</code> class, it is a rectangle in the parent’s coordinate system that contains the node’s content, ignoring the node’s children according to Apple’s documentation. So the position of the label will appear in the centre of screen. You could also use <code>CGPointMake(self.size.width/2, self.size.height/2)</code> to set the label in the centre of screen.</p>
+<p>At last, we need to add the label we created into our scene. This is done by calling <code>addChild:(SKNode *)node</code> method.</p>
+<h4 id="2-2-void-touchesBegan-NSSet-touches-withEvent-UIEvent-event"><a href="#2-2-void-touchesBegan-NSSet-touches-withEvent-UIEvent-event" class="headerlink" title="2.2 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event"></a>2.2 <em>-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event</em></h4><p>This method will be called immediately when your finger touches the screen.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">  <span class="comment">/* Called when a touch begins */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">UITouch</span> *touch <span class="keyword">in</span> touches) &#123;</span><br><span class="line">    <span class="built_in">CGPoint</span> location = [touch locationInNode:<span class="keyword">self</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">SKSpriteNode</span> *sprite = [<span class="built_in">SKSpriteNode</span> spriteNodeWithImageNamed:<span class="string">@"Spaceship"</span>];</span><br><span class="line"></span><br><span class="line">    sprite.position = location;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">SKAction</span> *action = [<span class="built_in">SKAction</span> rotateByAngle:M_PI duration:<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    [sprite runAction:[<span class="built_in">SKAction</span> repeatActionForever:action]];</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> addChild:sprite];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In the above code, it will create a spaceship where you touch the screen, and the rotate the spaceship forever.</p>
+<p>We get the location of where your finger touches on the screen by calling <code>[touch locationInNode:self]</code>. Then we create our first sprite <code>[SKSpriteNode spriteNodeWithImageNamed:@&quot;Spaceship&quot;]</code>. It will search in the project and find the image named “Spaceship” as you could see in the Project Content mentioned above. Then we set the position of the spaceship to location where we touch the screen.</p>
+<p>The next two lines of code create a simple animation on the screen. It creates a rotation action and then assign this action to the spaceship and let it run this action.</p>
+<p>At last, still we need to add the spaceship sprite to our scene. Otherwise you won’t see any spaceship on the screen.</p>
+<h4 id="2-3-void-update-CFTimeInterval-currentTime"><a href="#2-3-void-update-CFTimeInterval-currentTime" class="headerlink" title="2.3 -(void)update:(CFTimeInterval)currentTime"></a>2.3 <em>-(void)update:(CFTimeInterval)currentTime</em></h4><p>Finally, there is a <code>update</code> function, which will be called every single frame while the scene is presented.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)update:(<span class="built_in">CFTimeInterval</span>)currentTime &#123;</span><br><span class="line">  <span class="comment">/* Called before each frame is rendered */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In this case, we don’t do anything here.</p>
+<h3 id="3-First-run-of-the-project"><a href="#3-First-run-of-the-project" class="headerlink" title="3.First run of the project"></a>3.First run of the project</h3><p>I set the “iPhone Retina (4-inch 64-bit)” as my target. Here is what is looks like when the project is launched.</p>
+<p><img src="/images/sprite-3.png" alt="image"></p>
+<p>When I click on the screen, there is a spaceship appears at the position where I clicked and it is rotating.</p>
+<p><img src="/images/sprite-4.png" alt="image"></p>
+<p>Have fun !</p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://blog.wangheng.ca">Heng Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://blog.wangheng.ca/2014/04/13/2014-04-13-learn-spritekit-1/">http://blog.wangheng.ca/2014/04/13/2014-04-13-learn-spritekit-1/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/ios/">ios</a>
+            <a href="/tags/game/">game</a>
+            <a href="/tags/SpriteKit/">SpriteKit</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2014/05/14/2014-05-14-git-tag/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Git Tag For Version Control</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    <a class="next" href="/2014/04/10/2014-04-10-push-xcode-project-to-github/">
+        <span class="next-text nav-default">Pushing Xcode Project To Github Within Terminal</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:artekr.heng@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://twitter.com/artekrhengwang" class="iconfont icon-twitter" title="twitter"></a>
+        <a href="https://github.com/artekr" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.instagram.com/artekr" class="iconfont icon-instagram" title="instagram"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2014 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Heng Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://blog.wangheng.ca/2014/04/13/2014-04-13-learn-spritekit-1/';
+        this.page.identifier = '2014/04/13/2014-04-13-learn-spritekit-1/';
+        this.page.title = 'Learning IOS Sprite Kit – 1';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//artekr.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
