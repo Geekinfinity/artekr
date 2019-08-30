@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Algorithm - Boyer-Moore Majority Voting"><meta name="keywords" content="leetcode, algorithm, array, Artekr"><link rel="alternate" href="/atom.xml" title="Artekr"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon-32x32.ico?v=2.11.0">
+<link rel="canonical" href="http://blog.wangheng.ca/2019/08/29/2019-08-29-02-algorithm/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66230718-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66230718-3');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>Algorithm - Boyer-Moore Majority Voting - Artekr</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Artekr</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Artekr</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Algorithm - Boyer-Moore Majority Voting
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-08-29
+        </span><span class="post-category">
+            <a href="/categories/Algorithm/">Algorithm</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Problem"><span class="toc-text">Problem</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Analyze"><span class="toc-text">Analyze</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Brute-Force"><span class="toc-text">Brute Force</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap"><span class="toc-text">HashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Boyer-Moore-Majority-Voting-Algorithm"><span class="toc-text">Boyer-Moore Majority Voting Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Idea"><span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementation"><span class="toc-text">Implementation</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><p>A good design of an algorithm is never making the problem more complicated, instead you will find it so simple that normally takes few lines of code yet maintains the time and space complexity minimal.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>Given an array of size <em>n</em>, find the majority element. The majority element is the element that appears <strong>more than</strong> <em>⌊n/2⌋</em> times.</p>
+<p><em>Note: You may assume that the array is non-empty and the majority element always exist in the array.</em></p>
+<p><a href="https://leetcode.com/problems/majority-element/" target="_blank" rel="noopener">LeetCode 169</a></p>
+<a id="more"></a>
+
+<h1 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h1><h2 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a>Brute Force</h2><p>A quick and naive thinking to solve this problem is using Brute Force approach. Basically, using two for loop, count the number of appearance for each element. Once the counter exceeds the <em>⌊n/2⌋</em>, then we return the element.</p>
+<p>Seems pretty straightforward, but what about <em>n = 1 million</em>? Obviously, this approach is not time efficient. The time complexity will be <strong>O(n^2)</strong>.</p>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>This seems to be more time efficient, as the lookup time for HashMap is constant(At least most of the time). So the idea would be: while we iterate the array, we save the element as the key in the HashMap, the counter for the element as the value.</p>
+<p>Once we complete the iteration on the array, we will have the HashMap containing the unique elements and their appearance counters.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">majorityElement</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">    d = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        d[n] = d[n]+<span class="number">1</span> <span class="keyword">if</span> n <span class="keyword">in</span> d <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> d.keys():</span><br><span class="line">        <span class="keyword">if</span> d[k] &gt; len(nums)/<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> k</span><br></pre></td></tr></table></figure>
+
+<p>This approach takes two separate iterations, so the time complexity will be O(n+n), which can be simplified as <strong>O(n)</strong>. How about the space complexity? Since we are using an additional HashMap, the space complexity will be <strong>O(n)</strong> as well.</p>
+<p>Can we solve it in constant space complexity?</p>
+<h2 id="Boyer-Moore-Majority-Voting-Algorithm"><a href="#Boyer-Moore-Majority-Voting-Algorithm" class="headerlink" title="Boyer-Moore Majority Voting Algorithm"></a>Boyer-Moore Majority Voting Algorithm</h2><p>A little bit background of this algorithm from Wikipedia:</p>
+<blockquote>
+<p>The Boyer–Moore majority vote algorithm is an algorithm for finding the majority of a sequence of elements using linear time and constant space. It is named after Robert S. Boyer and J Strother Moore, who published it in 1981, and is a prototypical example of a streaming algorithm.</p>
+</blockquote>
+<p>As you can see, the algorithm only uses <strong>linear time</strong> and <strong>constant space</strong>.</p>
+<h3 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h3><p>The idea is that we use two additional variables:</p>
+<ul>
+<li><strong>candidate</strong>: to keep track of the potential candidate at each step.</li>
+<li><strong>counter</strong>: the number of appearance of the candidate at that step.</li>
+</ul>
+<p>Initially, the current candidate is <em>None</em> and the counter is 0. As we iterate the array over an element <em>e</em>, we will do the following check:</p>
+<ul>
+<li>If the counter is 0, we set the current element <em>e</em> as the new candidate.</li>
+<li>If the counter is not 0, we will check:<ul>
+<li>If the current element <em>e</em> is the same as the candidate, we increment the counter by 1</li>
+<li>Else we decrement the counter by 1</li>
+</ul>
+</li>
+</ul>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Let’s take this array as an example: [2,2,1,1,3,2,2].</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>   None     <span class="number">0</span></span><br><span class="line">^</span><br><span class="line"></span><br><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>    <span class="number">2</span>       <span class="number">1</span></span><br><span class="line">  ^</span><br><span class="line"></span><br><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>    <span class="number">2</span>       <span class="number">2</span></span><br><span class="line">    ^</span><br><span class="line"></span><br><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>    <span class="number">2</span>       <span class="number">1</span></span><br><span class="line">      ^</span><br><span class="line"></span><br><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>    <span class="number">2</span>       <span class="number">0</span></span><br><span class="line">        ^</span><br><span class="line"></span><br><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>    <span class="number">3</span>       <span class="number">1</span></span><br><span class="line">          ^</span><br><span class="line"></span><br><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>    <span class="number">3</span>       <span class="number">0</span></span><br><span class="line">            ^</span><br><span class="line"></span><br><span class="line">                  CAND    COUN</span><br><span class="line">  <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>    <span class="number">2</span>       <span class="number">1</span></span><br><span class="line">              ^</span><br></pre></td></tr></table></figure>
+
+<p>After the iteration, the candidate is 2, which is the majority element of this array.</p>
+<p>You can validate with any other scenario following the same approach.</p>
+<h3 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">majorityElement</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">    candidate = <span class="literal">None</span></span><br><span class="line">    counter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        <span class="keyword">if</span> counter == <span class="number">0</span>:</span><br><span class="line">            candidate = n</span><br><span class="line">        counter += <span class="number">1</span> <span class="keyword">if</span> n == candidate <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">return</span> candidate</span><br></pre></td></tr></table></figure>
+
+<p>Obviously, there is only one iteration and allocates only constant additional memory. Therefore, the time complexity would be <strong>O(n)</strong>, and space complexity would be <strong>O(1)</strong>.</p>
+<p>If you are interested in the mathematical proof of this approach. One of the inventor Moore attaches their publication <a href="http://www.cs.utexas.edu/~moore/best-ideas/mjrty/index.html" target="_blank" rel="noopener">here</a>.</p>
+<p>The beauty and power of algorithms.</p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://blog.wangheng.ca">Heng Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://blog.wangheng.ca/2019/08/29/2019-08-29-02-algorithm/">http://blog.wangheng.ca/2019/08/29/2019-08-29-02-algorithm/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/leetcode/">leetcode</a>
+            <a href="/tags/algorithm/">algorithm</a>
+            <a href="/tags/array/">array</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/08/18/2019-08-18-01-algorithm/">
+        <span class="next-text nav-default">Algorithm - LRU</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:artekr.heng@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://twitter.com/artekrhengwang" class="iconfont icon-twitter" title="twitter"></a>
+        <a href="https://github.com/artekr" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.instagram.com/artekr" class="iconfont icon-instagram" title="instagram"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2014 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Heng Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://blog.wangheng.ca/2019/08/29/2019-08-29-02-algorithm/';
+        this.page.identifier = '2019/08/29/2019-08-29-02-algorithm/';
+        this.page.title = 'Algorithm - Boyer-Moore Majority Voting';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//artekr.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
